@@ -74,11 +74,11 @@ async def hh( client, path ):
 					if room.p1.ready and room.p2.ready:
 						packet[ "op" ] = "start"
 						try:
-							await room.p1.client.send( packet )
+							await room.p1.client.send( dumps( packet ) )
 						except websockets.exceptions.ConnectionClosedOK:
 							print( "closed" )
 						try:
-							await room.p2.client.send( packet )
+							await room.p2.client.send( dumps( packet ) )
 						except websockets.exceptions.ConnectionClosedOK:
 							print( "closed" )
 
