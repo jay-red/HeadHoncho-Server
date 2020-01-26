@@ -66,14 +66,13 @@ async def hh( client, path ):
 				packet[ "code" ] = 2
 			await client.send( dumps( packet ) )
 		elif op == "ready":
-			packet[ "op" ] = "start"
-			room = data[ "room" ]
 			if client in players:
 				p = players[ client ]
-				if room < len( rooms ):
-					room = rooms[ room ]
+				if p.room < len( rooms ):
+					room = rooms[ p.room ]
 					p.ready = True
 					if room.p1.ready and room.p2.ready:
+						packet[ "op" ] = "start"
 						try:
 							await room.p1.client.send( packet )
 						except websockets.exceptions.ConnectionClosedOK:
