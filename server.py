@@ -81,6 +81,21 @@ async def hh( client, path ):
 							await room.p2.client.send( dumps( packet ) )
 						except websockets.exceptions.ConnectionClosedOK:
 							print( "closed" )
+		elif op == "shoot":
+			if client in players:
+				p = players[ client ]
+				if p.room < len( rooms ):
+					room = rooms[ p.room ]
+					if room.p1 == p:
+						try:
+							await room.p2.client.send( dumps( data ) )
+						except websockets.exceptions.ConnectionClosedOK:
+							print( "closed" )
+					elif room.p2 == p:
+						try:
+							await room.p1.client.send( dumps( data ) )
+						except websockets.exceptions.ConnectionClosedOK:
+							print( "closed" )
 
 if( "PORT" in os.environ ):
 	start_server = websockets.serve( hh, "0.0.0.0", os.environ[ "PORT" ] )
