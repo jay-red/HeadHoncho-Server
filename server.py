@@ -15,7 +15,7 @@ class Player():
 	def __init__( self, room, client ):
 		self.room = room
 		self.client = client
-		self.ready = True
+		self.ready = False
 
 class Room():
 	def __init__( self ):
