@@ -33,7 +33,21 @@ async def hh( client, path ):
 		data = loads( msg )
 		op = data[ "op" ]
 		packet = {}
-		if op == "join":
+		if op == "create":
+			room = rooms[ 0 ]
+			if room.p1 != None:
+				try:
+					await room.p1.client.close()
+				except websockets.exceptions.ConnectionClosedOK:
+					print( "closed" )
+			if room.p2 != None:
+				try:
+					await room.p2.client.close()
+				except websockets.exceptions.ConnectionClosedOK:
+					print( "closed" )
+			room.p1 = None
+			room.p2 = None
+		elif op == "join":
 			packet[ "op" ] = "join"
 			room = data[ "room" ]
 			p =  Player( room, client )
