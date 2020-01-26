@@ -82,6 +82,7 @@ async def hh( client, path ):
 						except websockets.exceptions.ConnectionClosedOK:
 							print( "closed" )
 		elif op == "shoot":
+			print( "shot" )
 			if client in players:
 				p = players[ client ]
 				if p.room < len( rooms ):
